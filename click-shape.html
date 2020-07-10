@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<title>click-shape</title>
+
+	<style type="text/css">
+		.circle{
+			height: 70px;
+			width: 70px;
+			border-radius: 50%;
+			background-color: red;
+			position: absolute;
+		}
+		body{
+			text-align: center;
+			align-items: center;
+			background-color: #4dffcf;
+			color: 	 	#333333;
+		}
+		#btt{
+			margin: 30px;
+			padding: 10px 28px;
+			background-color: red;
+			color: #fff;
+			font-size: 1.7em;
+			border-width: 0px;
+			border-radius: 20px;
+		}
+		#btt:focus{
+			outline: none;
+		}
+		#btt:hover{
+			background-color: blue;
+		}
+		#h31{
+			font-size: 2em;
+			font-weight: bold;
+		}
+		#h3{
+			font-size: 2.3em;
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+	<div id="div1">
+<h1 style="color: blue;
+font-size: 3.2em;">welcome to my second game.</h1>
+<h1>click the circles with in one second</h1>
+<h1 style="text-decoration: underline;">click 15 circles continuosuly to win the game.</h1></div>
+<h2 id="emo">wider the screen harder the game &#129409; .</h2>
+<button id ="btt" style="cursor: pointer;">let's play</button>
+<h1 id="btn">click to play game</h1>
+
+
+<h3 id="h3"></h3>
+<h3 id="h31"></h3>
+<h3 id="h32"></h3>
+<h3 id="h33"></h3>
+<script>
+
+	var div1=document.getElementById('div1');
+	var button=document.getElementById("btt");
+	var circle=document.getElementById("h33");
+    var count=0;
+    var time;
+	var topmargin=circle.clientHeight;
+	function myfunction(){
+		$("#emo").hide();
+		$("#h3").hide();
+		$("#div1").hide();
+		$("#btt").hide();
+		$("#btn").hide();
+		$("#h31").html("starting.....");
+ time=setTimeout(myfirstfunction,random(4000));}
+
+	button.addEventListener('click',myfunction);
+
+	function myfirstfunction() {
+		
+		circle.classList.add('circle');
+		circle.start= new Date().getTime();
+		circle.style.top=random(settop()+1)+"px";
+		circle.style.left=random(setleft()+1)+"px";
+		circle.style.backgroundColor=getcolor();
+		$("#h32").append(circle);circle.addEventListener('click',mysecondfunction);
+		
+		
+	}
+
+function settop(){
+	
+	if(topmargin< 100){
+		topmargin=400;
+	}
+	else{
+		topmargin=500;
+
+	}
+	return topmargin;
+}
+var leftmargin=circle.clientwidth;
+function setleft(){
+		
+	if(leftmargin< 100){
+		leftmargin=800;
+	}
+	else{
+		leftmargin=400;
+	}
+	return leftmargin;
+}
+
+function getcolor(){
+	var temp="rgb("+(Math.floor((Math.random()*1000))+","+Math.floor((Math.random()*300))+","+Math.floor((Math.random()*20)))+")";
+	return temp;
+}
+
+function mysecondfunction(e){
+count++;
+var start=e.target.start;
+var end=new Date().getTime();
+var avg=(end-start)/1000;
+$("#h3").html("it tooks "+ avg  +" seconds to click.").show();
+if(count<=15){
+	if(count==15){
+		$("#h32").children(0).remove();
+		$("#h31").html(`<h3>wow you scored 15 !<br><span style="color:blue;text-decoration:underline;"> you won the game ! &#128526;</span></h3>`)
+		$("#btt").html("play again").show();
+	}
+	else{
+		if(avg>1){
+			
+	
+	$("#h31").html(`<h3>sorry.... <br><span style="color:red;text-decoration:underline;">you lost!  </span> &#128549; the game. <br>your score is ${count}</h3>.`);
+   count=0;
+   $("#btt").html("retry").show();	
+    $("#h32").children(0).remove();
+     clearTimeout(time);
+	}
+	else{
+	$("#h32").children(0).remove();
+	setTimeout(myfirstfunction,random(4000));
+	$("#h31").html("score: "+  count +" of 15");}
+}
+}
+
+else{
+	
+clearTimeout(time);
+	
+}
+}
+
+
+function random(num){
+
+	return Math.floor(Math.random()*num);
+}
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
